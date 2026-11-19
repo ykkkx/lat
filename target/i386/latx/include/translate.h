@@ -1612,6 +1612,8 @@ IR2_OPND convert_mem_to_itemp(IR1_OPND *opnd0);
 IR2_OPND convert_gpr_opnd(IR1_OPND *, EXTENSION_MODE);
 IR2_OPND load_freg128_from_ir1(IR1_OPND *);
 void load_imm_to_ir1_opnd_gpr(IR1_OPND *opnd0, uint64_t imm);
+/* Read an operand, materializing pending YMM upper zeros. A write-only register
+ * destination uses ra_alloc_xmm instead; source/RMW operands still use this. */
 IR2_OPND load_freg256_from_ir1(IR1_OPND *opnd1);
 void clear_xmm_high64(IR2_OPND opnd);
 /* Request a logical upper zero: defer guest registers, clear temporaries now. */

@@ -201,7 +201,7 @@ bool translate_vmovshdup(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
         la_xvpackod_w(dest, src, src);
     } else {
@@ -222,7 +222,7 @@ bool translate_vmovsldup(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
         la_xvpackev_w(dest, src, src);
     } else {
@@ -243,7 +243,7 @@ bool translate_vmovddup(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
 
         la_xvrepl128vei_d(dest, src, 0);
@@ -453,7 +453,7 @@ bool translate_vmaskmovpx(IR1_INST * pir1) {
             break;
     }
     if (ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         tr_slt(mask, src1, 0);
         la_xvand_v(dest, src2, mask);
         if (ir1_opnd_is_xmm(opnd0)) {

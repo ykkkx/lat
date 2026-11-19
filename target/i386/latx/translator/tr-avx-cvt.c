@@ -21,7 +21,7 @@ bool translate_vcvtps2pd(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg128_from_ir1(ir1_get_opnd(pir1, 1));
         IR2_OPND temp = ra_alloc_ftemp();
 
@@ -79,7 +79,7 @@ bool translate_vcvtdq2ps(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
 
         la_xvffint_s_w(dest, src);
@@ -100,7 +100,7 @@ static bool translate_vcvtps2dq_opt(IR1_INST * pir1) {
     lsassert(ir1_opnd_is_xmm(opnd0) ||
         ir1_opnd_is_ymm(opnd0));
 
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     IR2_OPND sse_invalid = ra_alloc_ftemp();
     IR2_OPND overflow = ra_alloc_ftemp();
@@ -167,7 +167,8 @@ bool translate_vcvtps2dq(IR1_INST * pir1) {
         IR2_OPND label_sixth_operand = ra_alloc_label();
         IR2_OPND label_seventh_operand = ra_alloc_label();
         IR2_OPND label_eighth_operand = ra_alloc_label();
-        IR2_OPND dest = is_same_reg ? ra_alloc_ftemp() : load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = is_same_reg ? ra_alloc_ftemp() :
+                        ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src = load_freg256_from_ir1(opnd1);
 
         la_xvftint_w_s(dest, src);
@@ -265,7 +266,7 @@ bool translate_vcvtps2dq(IR1_INST * pir1) {
 
         la_label(label_over);
         if (is_same_reg) {
-            la_xvori_b(load_freg256_from_ir1(opnd0), dest, 0);
+            la_xvori_b(ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0)), dest, 0);
         }
         ra_free_temp(temp_fcsr);
         ra_free_temp(temp_int);
@@ -357,7 +358,7 @@ bool translate_vcvtdq2pd(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
     IR2_OPND fcsr_opnd = set_fpu_fcsr_rounding_field_by_x86();
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg128_from_ir1(ir1_get_opnd(pir1, 1));
         IR2_OPND high = ra_alloc_ftemp();
 
@@ -857,7 +858,7 @@ static bool translate_vcvttps2dq_opt(IR1_INST * pir1) {
     lsassert(ir1_opnd_is_xmm(opnd0) ||
         ir1_opnd_is_ymm(opnd0));
 
-    IR2_OPND dest =  load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     IR2_OPND sse_invalid = ra_alloc_ftemp();
     IR2_OPND overflow = ra_alloc_ftemp();
@@ -924,7 +925,8 @@ bool translate_vcvttps2dq(IR1_INST * pir1) {
         IR2_OPND label_sixth_operand = ra_alloc_label();
         IR2_OPND label_seventh_operand = ra_alloc_label();
         IR2_OPND label_eighth_operand = ra_alloc_label();
-        IR2_OPND dest = is_same_reg ? ra_alloc_ftemp() : load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = is_same_reg ? ra_alloc_ftemp() :
+                        ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src = load_freg256_from_ir1(opnd1);
 
         la_xvftintrz_w_s(dest, src);
@@ -1022,7 +1024,7 @@ bool translate_vcvttps2dq(IR1_INST * pir1) {
 
         la_label(label_over);
         if (is_same_reg) {
-            la_xvori_b(load_freg256_from_ir1(opnd0), dest, 0);
+            la_xvori_b(ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0)), dest, 0);
         }
         ra_free_temp(temp_fcsr);
         ra_free_temp(temp_int);

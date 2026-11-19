@@ -443,7 +443,7 @@ bool translate_vsqrtpd(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
 
         la_xvfsqrt_d(dest, src);
@@ -467,7 +467,7 @@ bool translate_vsqrtps(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
 
         la_xvfsqrt_s(dest, src);
@@ -538,7 +538,7 @@ bool translate_vaddsubpd(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND add_src1 = ra_alloc_ftemp();
@@ -575,7 +575,7 @@ bool translate_vaddsubps(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -615,7 +615,7 @@ bool translate_vhaddpd(IR1_INST * pir1) {
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp1 = ra_alloc_ftemp();
@@ -652,7 +652,7 @@ bool translate_vhaddps(IR1_INST * pir1) {
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp1 = ra_alloc_ftemp();
@@ -689,7 +689,7 @@ bool translate_vhsubpd(IR1_INST * pir1) {
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp1 = ra_alloc_ftemp();
@@ -726,7 +726,7 @@ bool translate_vhsubps(IR1_INST * pir1) {
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp1 = ra_alloc_ftemp();
@@ -761,7 +761,8 @@ bool translate_vandnpd(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        /* The result replaces dest; source loads still handle aliases below. */
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -797,7 +798,8 @@ bool translate_vandpd(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        /* The result replaces dest; source loads still handle aliases below. */
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -833,7 +835,8 @@ bool translate_vorps(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        /* The result replaces dest; source loads still handle aliases below. */
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -869,7 +872,8 @@ bool translate_vxorps(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        /* The full-width result replaces dest; aliased sources still load below. */
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -945,7 +949,7 @@ bool translate_vminpx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_INST * ( * tr_inst_128)(IR2_OPND, IR2_OPND, IR2_OPND, int);
@@ -1032,7 +1036,7 @@ bool translate_vmaxpx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_INST * ( * tr_inst_128)(IR2_OPND, IR2_OPND, IR2_OPND, int);
@@ -1085,7 +1089,7 @@ bool translate_vblendvpd(IR1_INST * pir1) {
             ir1_opnd_is_ymm(opnd1) &&
             ir1_opnd_is_ymm(opnd3)));
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND src3 = load_freg256_from_ir1(opnd3);
@@ -1116,7 +1120,7 @@ bool translate_vblendpd(IR1_INST * pir1) {
             ir1_opnd_is_xmm(ir1_get_opnd(pir1, 1))) ||
         (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)) &&
             ir1_opnd_is_ymm(ir1_get_opnd(pir1, 1))));
-    IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR2_OPND src1 = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
     IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
     uint8 imm = ir1_opnd_uimm(ir1_get_opnd(pir1, 3));
@@ -1204,7 +1208,7 @@ bool translate_vblendps(IR1_INST * pir1) {
         ir1_opnd_is_imm(ir1_get_opnd(pir1, 3)));
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     uint8 imm = ir1_opnd_uimm(ir1_get_opnd(pir1, 3));
@@ -1274,7 +1278,7 @@ bool translate_vblendvps(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) &&
             ir1_opnd_is_ymm(opnd1) &&
             ir1_opnd_is_ymm(opnd3)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND src3 = load_freg256_from_ir1(opnd3);
@@ -1292,7 +1296,7 @@ bool translate_vbroadcastsd(IR1_INST * pir1) {
     }
 
     lsassert(ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
-    IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR1_OPND *opnd1 = ir1_get_opnd(pir1, 1);
 
     if (ir1_opnd_is_mem(opnd1)) {
@@ -1334,7 +1338,7 @@ bool translate_vbroadcastss(IR1_INST * pir1) {
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
 #endif
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src = load_freg128_from_ir1(ir1_get_opnd(pir1, 1));
         la_xvreplve0_w(dest, src);
     } else {
@@ -1352,7 +1356,7 @@ bool translate_vbroadcastf128(IR1_INST * pir1) {
     }
 
     lsassert(ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
-    IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR2_OPND src = load_freg128_from_ir1(ir1_get_opnd(pir1, 1));
     la_xvreplve0_q(dest, src);
     return true;
@@ -1364,7 +1368,7 @@ bool translate_vbroadcasti128(IR1_INST * pir1) {
     }
 
     lsassert(ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)));
-    IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR2_OPND src = load_freg128_from_ir1(ir1_get_opnd(pir1, 1));
     la_xvreplve0_q(dest, src);
     return true;
@@ -1524,9 +1528,7 @@ bool translate_vinserti128(IR1_INST * pir1) {
         ir1_opnd_size(ir1_get_opnd(pir1, 2)) == 128 &&
         ir1_opnd_is_imm(ir1_get_opnd(pir1, 3)));
     uint8 imm = ir1_opnd_uimm(ir1_get_opnd(pir1, 3)) & 0x1;
-    IR2_OPND dest = imm ?
-        ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0))) :
-        load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR2_OPND src1 = imm ?
         ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 1))) :
         load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
@@ -1571,7 +1573,7 @@ bool translate_vshufpd(IR1_INST * pir1) {
             ir1_opnd_is_ymm(ir1_get_opnd(pir1, 1))));
 
     if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src1 = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
         uint8_t imm8 = ir1_opnd_uimm(ir1_get_opnd(pir1, 3)) & 0xf;
@@ -1685,7 +1687,7 @@ bool translate_vshufps(IR1_INST * pir1) {
         ir1_opnd_base_reg_num(opnd1) == ir1_opnd_base_reg_num(opnd2);
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         if (same_sources) {
             la_xvshuf4i_w(dest, src1, imm8);
@@ -1727,7 +1729,7 @@ bool translate_vunpckhpd(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -1754,7 +1756,7 @@ bool translate_vunpckhps(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -1781,7 +1783,7 @@ bool translate_vunpcklpd(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -1808,7 +1810,7 @@ bool translate_vunpcklps(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
 
     if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
 
@@ -1832,7 +1834,7 @@ bool translate_vpabsx(IR1_INST * pir1) {
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     IR2_OPND vzero = ra_alloc_ftemp();
     IR2_INST * ( * tr_inst_128)(IR2_OPND, IR2_OPND, IR2_OPND);
@@ -1878,7 +1880,7 @@ bool translate_vpackusxx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND temp2;
@@ -1940,7 +1942,7 @@ bool translate_vpaddx(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND, IR2_OPND);
     IR1_OPCODE op = ir1_opcode(pir1);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     switch (op) {
@@ -1991,7 +1993,8 @@ bool translate_vpand(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    /* The result replaces dest; source loads still handle aliases below. */
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -2014,7 +2017,8 @@ bool translate_vpandn(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    /* The result replaces dest; source loads still handle aliases below. */
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -2039,7 +2043,7 @@ bool translate_vpblendd(IR1_INST * pir1) {
     IR1_OPND * opnd3 = ir1_get_opnd(pir1, 3);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     uint8_t imm = ir1_opnd_uimm(opnd3);
@@ -2134,7 +2138,7 @@ bool translate_vpblendw(IR1_INST * pir1) {
     IR1_OPND * opnd3 = ir1_get_opnd(pir1, 3);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     uint8_t imm = ir1_opnd_uimm(opnd3);
@@ -2227,7 +2231,7 @@ bool translate_vperm2i128(IR1_INST * pir1) {
     IR1_OPND * opnd3 = ir1_get_opnd(pir1, 3);
     lsassert((ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
     lsassert(ir1_opnd_is_imm(opnd3));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     uint8 imm = ir1_opnd_uimm(opnd3) & 0xff;
     bool zero_l = (imm >> 3) & 0x1, zero_h = (imm >> 7) & 0x1;
     if (zero_l && zero_h) {
@@ -2267,7 +2271,7 @@ bool translate_vpermd(IR1_INST * pir1) {
 
     lsassert(ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)) &&
         ir1_opnd_is_ymm(ir1_get_opnd(pir1, 1)));
-    IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR2_OPND src1 = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
     IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
     la_xvperm_w(dest, src2, src1);
@@ -2281,7 +2285,7 @@ bool translate_vpermq(IR1_INST * pir1) {
 
     lsassert(ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0)) &&
         ir1_opnd_is_imm(ir1_get_opnd(pir1, 2)));
-    IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
     IR2_OPND src = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
     uint8 imm = ir1_opnd_uimm(ir1_get_opnd(pir1, 2)) & 0xff;
     la_xvpermi_d(dest, src, imm);
@@ -2343,7 +2347,7 @@ bool translate_vpminux(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND, IR2_OPND);
@@ -2377,7 +2381,7 @@ bool translate_vpmovsxxx(IR1_INST * pir1) {
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND);
     IR1_OPCODE op = ir1_opcode(pir1);
@@ -2420,7 +2424,7 @@ bool translate_vpmovzxxx(IR1_INST * pir1) {
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND);
     IR1_OPCODE op = ir1_opcode(pir1);
@@ -2465,7 +2469,7 @@ bool translate_vpmullx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND, IR2_OPND);
@@ -2502,7 +2506,8 @@ bool translate_vpor(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    /* The result replaces dest; source loads still handle aliases below. */
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     la_xvor_v(dest, src1, src2);
@@ -2522,7 +2527,7 @@ bool translate_vpshufb(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -2553,7 +2558,7 @@ bool translate_vpsubx(IR1_INST * pir1) {
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND, IR2_OPND);
     IR1_OPCODE op = ir1_opcode(pir1);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     switch (op) {
@@ -2649,7 +2654,7 @@ bool translate_vpunpckhxx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND, IR2_OPND);
@@ -2692,7 +2697,7 @@ bool translate_vpunpcklxx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_INST * ( * tr_inst)(IR2_OPND, IR2_OPND, IR2_OPND);
@@ -2732,7 +2737,8 @@ bool translate_vpxor(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    /* The result replaces dest; source loads still handle aliases below. */
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     la_xvxor_v(dest, src1, src2);
@@ -3757,7 +3763,7 @@ bool translate_vpmaxsd(IR1_INST *pir1)
         la_vmax_w(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src1 = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
         la_xvmax_w(dest, src1, src2);
@@ -3776,7 +3782,7 @@ bool translate_vpminsd(IR1_INST *pir1)
         la_vmin_w(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(ir1_get_opnd(pir1, 0))) {
-        IR2_OPND dest = load_freg256_from_ir1(ir1_get_opnd(pir1, 0));
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(ir1_get_opnd(pir1, 0)));
         IR2_OPND src1 = load_freg256_from_ir1(ir1_get_opnd(pir1, 1));
         IR2_OPND src2 = load_freg256_from_ir1(ir1_get_opnd(pir1, 2));
         la_xvmin_w(dest, src1, src2);
@@ -3814,7 +3820,7 @@ bool translate_vrsqrtps(IR1_INST * pir1) {
 
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
 
     /* this x86 instruction has no exception ,so we need mask all exception */
@@ -3835,7 +3841,7 @@ bool translate_vrcpps(IR1_INST * pir1) {
 
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
 
     /* this x86 instruction has no exception ,so we need mask all exception */
@@ -3884,7 +3890,7 @@ bool translate_vpsignb(IR1_INST * pir1) {
         la_vsigncov_b(dest, src2, src1);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         la_xvsigncov_b(dest, src2, src1);
@@ -3907,7 +3913,7 @@ bool translate_vpsignd(IR1_INST * pir1) {
         la_vsigncov_w(dest, src2, src1);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         la_xvsigncov_w(dest, src2, src1);
@@ -3930,7 +3936,7 @@ bool translate_vpsignw(IR1_INST * pir1) {
         la_vsigncov_h(dest, src2, src1);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         la_xvsigncov_h(dest, src2, src1);
@@ -3953,7 +3959,7 @@ bool translate_vpmulhw(IR1_INST * pir1) {
         la_vmuh_h(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         la_xvmuh_h(dest, src1, src2);
@@ -3976,7 +3982,7 @@ bool translate_vpmulhuw(IR1_INST * pir1) {
         la_vmuh_hu(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         la_xvmuh_hu(dest, src1, src2);
@@ -4010,7 +4016,7 @@ bool translate_vpmaddwd(IR1_INST * pir1) {
         }
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         if (dest._reg_num != src1._reg_num &&
@@ -4053,7 +4059,7 @@ bool translate_vpmaddubsw(IR1_INST * pir1) {
         set_high128_xreg_to_zero(dest);
 
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND even = ra_alloc_ftemp();
@@ -4074,7 +4080,7 @@ bool translate_vphsubw(IR1_INST * pir1) {
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND even = ra_alloc_ftemp();
@@ -4096,7 +4102,7 @@ bool translate_vphsubd(IR1_INST * pir1) {
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND even = ra_alloc_ftemp();
@@ -4118,7 +4124,7 @@ bool translate_vphsubsw(IR1_INST * pir1) {
     IR1_OPND * opnd0 = ir1_get_opnd(pir1, 0);
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND even = ra_alloc_ftemp();
@@ -4176,7 +4182,7 @@ bool translate_vpmaxxx(IR1_INST * pir1) {
         tr_inst(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         tr_inst(dest, src1, src2);
@@ -4220,7 +4226,7 @@ bool translate_vpminxx(IR1_INST * pir1) {
         tr_inst(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         tr_inst(dest, src1, src2);
@@ -4248,7 +4254,7 @@ bool translate_vpmuldq(IR1_INST * pir1) {
         la_vmulwev_d_w(dest, src1, src2);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         la_xvmulwev_d_w(dest, src1, src2);
@@ -4273,7 +4279,7 @@ bool translate_vpshufd(IR1_INST * pir1) {
         la_xvshuf4i_w(dest, src1, imm);
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         uint8_t imm = ir1_opnd_uimm(opnd2);
         la_xvshuf4i_w(dest, src1, imm);
@@ -4341,7 +4347,10 @@ bool translate_vpmaskmovx(IR1_INST * pir1) {
                 break;
 
         }
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        /* A masked store needs the old memory value; a load replaces the YMM. */
+        IR2_OPND dest = ir1_opnd_is_mem(opnd0) ?
+            load_freg256_from_ir1(opnd0) :
+            ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp1 = ra_alloc_ftemp();
@@ -4430,7 +4439,7 @@ bool translate_vpsllvd(IR1_INST * pir1) {
         la_vand_v(dest, dest, temp);
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -4464,7 +4473,7 @@ bool translate_vpsllvq(IR1_INST * pir1) {
         la_vand_v(dest, dest, temp);
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -4499,7 +4508,7 @@ bool translate_vpsravd(IR1_INST * pir1) {
 
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND count = ra_alloc_ftemp();
@@ -4520,7 +4529,7 @@ bool translate_vpermpx(IR1_INST * pir1) {
     IR1_OPND * opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
 
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2;
     uint8_t imm;
@@ -4572,7 +4581,7 @@ bool translate_vpermilps(IR1_INST * pir1) {
         }
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         if (ir1_opnd_is_imm(opnd2)) {
             uint8_t imm = ir1_opnd_uimm(opnd2);
@@ -4628,7 +4637,7 @@ bool translate_vpermilpd(IR1_INST * pir1) {
         }
         set_high128_xreg_to_zero(dest);
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         if (ir1_opnd_is_imm(opnd2)) {
             uint8_t imm = ir1_opnd_uimm(opnd2);
@@ -4691,7 +4700,7 @@ bool translate_vpalignr(IR1_INST * pir1) {
             }
         }
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -4767,7 +4776,7 @@ bool translate_vpmulhrsw(IR1_INST * pir1) {
         set_high128_xreg_to_zero(dest);
 
     } else {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp1 = ra_alloc_ftemp();
@@ -4931,7 +4940,7 @@ bool translate_vpackssxx(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND temp;
@@ -4989,7 +4998,7 @@ bool translate_vpshufhw(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
 
     uint64_t imm8 = ir1_opnd_uimm(opnd2);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     if (dest._reg_num != src._reg_num) {
         la_xvshuf4i_h(dest, src, imm8);
@@ -5019,7 +5028,7 @@ bool translate_vpshuflw(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
 
     uint64_t imm8 = ir1_opnd_uimm(opnd2);
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     if (dest._reg_num != src._reg_num) {
         la_xvshuf4i_h(dest, src, imm8);
@@ -5046,7 +5055,7 @@ bool translate_vpavgb(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     la_xvavgr_bu(dest, src1, src2);
@@ -5066,7 +5075,7 @@ bool translate_vpavgw(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
 
@@ -5139,7 +5148,7 @@ bool translate_vdpps(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     IR1_OPND *opnd3 = ir1_get_opnd(pir1, 3);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND temp1 = ra_alloc_ftemp();
@@ -5209,7 +5218,7 @@ bool translate_vmpsadbw(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     IR1_OPND *opnd3 = ir1_get_opnd(pir1, 3);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     uint8_t imm = ir1_opnd_uimm(opnd3);
@@ -5267,7 +5276,7 @@ bool translate_vphaddw(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND temp1 = ra_alloc_ftemp();
@@ -5293,7 +5302,7 @@ bool translate_vphaddd(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND temp1 = ra_alloc_ftemp();
@@ -5319,7 +5328,7 @@ bool translate_vphaddsw(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     IR2_OPND temp1 = ra_alloc_ftemp();
@@ -5345,7 +5354,7 @@ bool translate_vpsadbw(IR1_INST *pir1)
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     lsassert((ir1_opnd_is_xmm(opnd0) && ir1_opnd_is_xmm(opnd1)) ||
         (ir1_opnd_is_ymm(opnd0) && ir1_opnd_is_ymm(opnd1)));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src1 = load_freg256_from_ir1(opnd1);
     IR2_OPND src2 = load_freg256_from_ir1(opnd2);
     la_xvabsd_bu(dest, src1, src2);
@@ -5441,7 +5450,7 @@ bool translate_vroundps(IR1_INST *pir1)
     IR1_OPND *opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     uint8_t imm = ir1_opnd_uimm(opnd2);
 
@@ -5545,7 +5554,7 @@ bool translate_vroundpd(IR1_INST *pir1)
     IR1_OPND *opnd1 = ir1_get_opnd(pir1, 1);
     IR1_OPND *opnd2 = ir1_get_opnd(pir1, 2);
     lsassert(ir1_opnd_is_xmm(opnd0) || ir1_opnd_is_ymm(opnd0));
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     IR2_OPND src = load_freg256_from_ir1(opnd1);
     uint8_t imm = ir1_opnd_uimm(opnd2);
 
@@ -5991,7 +6000,7 @@ bool translate_vpclmulqdq(IR1_INST * pir1) {
     IR1_OPND * opnd2 = ir1_get_opnd(pir1, 2);
     IR1_OPND * opnd3 = ir1_get_opnd(pir1, 3);
 
-    IR2_OPND dest = load_freg256_from_ir1(opnd0);
+    IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
     int s0 = ir1_opnd_base_reg_num(opnd0);
     int s1 = ir1_opnd_base_reg_num(opnd1);
     uint8_t ctrl = ir1_opnd_uimm(opnd3);
@@ -6453,7 +6462,7 @@ bool translate_vpsrlvd(IR1_INST * pir1) {
         la_vand_v(dest, dest, temp);
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp = ra_alloc_ftemp();
@@ -6486,7 +6495,7 @@ bool translate_vpsrlvq(IR1_INST * pir1) {
         la_vand_v(dest, dest, temp);
         set_high128_xreg_to_zero(dest);
     } else if (ir1_opnd_is_ymm(opnd0)) {
-        IR2_OPND dest = load_freg256_from_ir1(opnd0);
+        IR2_OPND dest = ra_alloc_xmm(ir1_opnd_base_reg_num(opnd0));
         IR2_OPND src1 = load_freg256_from_ir1(opnd1);
         IR2_OPND src2 = load_freg256_from_ir1(opnd2);
         IR2_OPND temp = ra_alloc_ftemp();
